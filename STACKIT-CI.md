@@ -1,7 +1,7 @@
 # STACKIT Git CI setup
 
 The executable workflows live at repository root in `.forgejo/workflows/`.
-The `golang-app/` directory is the Git repository root. Push its contents, including the hidden `.forgejo/` directory. Do not put workflows in a plain `workflows/` directory or include a `golang-app/` prefix in workflow paths. Use `main` as the publication branch.
+The `golang-app/` directory is the Git repository root. Push its contents, including the hidden `.forgejo/` directory.
 The Go application and container builds use the existing source and Dockerfiles.
 
 ## Enable Actions and runners
@@ -16,9 +16,9 @@ See [Enable Actions](https://docs.stackit.cloud/products/developer-platform/git/
 
 Add these through your STACKIT Git repository's Actions settings. Do not commit credentials.
 
-| Type | Name | Value |
-|---|---|---|
-| Secret | `DOCKERHUB_USER` | Docker Hub username for all three images |
+| Type   | Name              | Value                                                                                                 |
+| ------ | ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Secret | `DOCKERHUB_USER`  | Docker Hub username for all three images                                                              |
 | Secret | `DOCKERHUB_TOKEN` | Docker Hub token allowed to push that user's `course-app`, `campus-api`, and `campus-frontend` images |
 
 The capstone publishes `docker.io/<DOCKERHUB_USER>/campus-api:sha-<commit>` and `docker.io/<DOCKERHUB_USER>/campus-frontend:sha-<commit>`. The course publishes `docker.io/<DOCKERHUB_USER>/course-app:sha-<commit>`. Both workflows share the same two secrets; no GitHub registry credentials or namespace variable are needed.

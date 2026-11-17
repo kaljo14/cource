@@ -12,16 +12,6 @@ A process needs a machine a reliable service needs a system that replaces failed
 
 kind runs each node as a Docker container, with containerd inside. The control-plane node runs API server, scheduler, controller manager and etcd. Its default taint excludes ordinary workloads. The two workers run application Pods. CoreDNS resolves Service names networking connects Pod IPs. A context selects cluster, credentials and default namespace. Namespaces scope names, not physical machines.
 
-```mermaid
-flowchart LR
-kubectl --> API
-API --> etcd
-API --> Scheduler
-API --> Controllers
-API --> Kubelet
-Kubelet --> Containers
-```
-
 ## Practical example
 
 Follow [the student lab](lab.md), then compare with [instructor solutions](lab-solutions.md). All commands run from `golang-app/` unless a subshell changes directory.
