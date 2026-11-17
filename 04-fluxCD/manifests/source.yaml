@@ -5,6 +5,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  url: https://github.com/REPLACE_OWNER/REPLACE_REPO.git
+  url: https://YOUR-STACKIT-GIT-HOST/OWNER/REPO.git
   ref:
-    branch: main
+    branch: kaloyan-app
+  secretRef:
+    name: course-git-auth

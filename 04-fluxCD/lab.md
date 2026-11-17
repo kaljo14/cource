@@ -25,13 +25,16 @@ flux check
 
 ## Part 2 — Source and reconciliation
 
+Complete the [private-repository setup](lecturer-instructions.md) first.
+
 **What you will do:** source and reconciliation.
 
 **Instructions:**
 
 ```bash
-# Replace repository URL in source.yaml. Update prod overlay to your public Docker Hub
-# image and successful sha tag as in Module 03; commit and push.
+# Follow lecturer-instructions.md: set the private repo URL and create course-git-auth.
+# Flux tracks kaloyan-app. Use an existing published Docker Hub image SHA in the
+# prod overlay; commit and push to kaloyan-app. CI publishes images only from main.
 kubectl apply -f 04-fluxCD/manifests/source.yaml
 kubectl apply -f 04-fluxCD/manifests/kustomization.yaml
 flux reconcile source git course

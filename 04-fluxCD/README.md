@@ -1,6 +1,6 @@
 # GitOps with Flux CD
 
-**Prerequisites:** Module 03 complete, the course cluster running, your public course repository, and Flux CLI 2.5.1 installed. Commands run from `golang-app/` using context `kind-course`.
+**Prerequisites:** Module 03 complete, the course cluster running, your private STACKIT Git course repository, and Flux CLI 2.5.1 installed. Commands run from `golang-app/` using context `kind-course`.
 
 ## What you will learn
 
@@ -59,7 +59,7 @@ A GitRepository object is stored in the Kubernetes API. It is a description, not
 
 _Object-to-controller diagram: a resource describes the job a controller performs it._
 
-Imagine a teaching assistant receiving two cards: “Download the main branch of this repository” and “Use the production folder from that download.” Flux keeps checking those instructions. Closing the terminal does not erase the cards or stop its controllers.
+Imagine a teaching assistant receiving two cards: “Download the kaloyan-app branch of this repository” and “Use the production folder from that download.” Flux keeps checking those instructions. Closing the terminal does not erase the cards or stop its controllers.
 
 If Flux is temporarily unavailable, Kubernetes still maintains existing Deployments. Flux must recover before it can fetch and apply new desired state. A failed application Pod is normally replaced by its ReplicaSet, not by the Flux CLI.
 
@@ -75,14 +75,16 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  url: https://github.com/REPLACE_OWNER/REPLACE_REPO.git
+  url: https://YOUR-STACKIT-GIT-HOST/OWNER/REPO.git
   ref:
-    branch: main
+    branch: kaloyan-app
+  secretRef:
+    name: course-git-auth
 ```
 
-Read this as: “Check this repository's main branch every minute.” Replace the owner and repository placeholders before applying it.
+Read this as: “Check this repository's kaloyan-app branch every minute.” Replace the URL with your STACKIT HTTPS clone URL and create the referenced Secret before applying it. See [lecturer instructions](lecturer-instructions.md) for private-repository setup and custom branches.
 
-`metadata.name: course` names the Kubernetes object. It does not create a new repository on GitHub. A successful fetch produces an artifact with a revision that other controllers can use. Read the detailed [GitRepository documentation](https://fluxcd.io/flux/components/source/gitrepositories/).
+`metadata.name: course` names the Kubernetes object. It does not create a new repository in STACKIT Git. A successful fetch produces an artifact with a revision that other controllers can use. Read the detailed [GitRepository documentation](https://fluxcd.io/flux/components/source/gitrepositories/).
 
 ## 4. Mini example: which files should be deployed?
 
