@@ -27,7 +27,7 @@ Expected observation: Both report Ready=True at the pushed revision.
 Commands and verification:
 
 ```bash
-# Replace repository URL in source.yaml. Update prod overlay to your public GHCR
+# Replace repository URL in source.yaml. Update prod overlay to your public Docker Hub
 # image and successful sha tag as in Module 03; commit and push.
 kubectl apply -f 04-fluxCD/manifests/source.yaml
 kubectl apply -f 04-fluxCD/manifests/kustomization.yaml

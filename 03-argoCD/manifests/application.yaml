@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/REPLACE_OWNER/REPLACE_REPO.git
     targetRevision: main
-    path: golang-app/02-gitops-config-kustomize/overlays/dev
+    path: 02-gitops-config-kustomize/overlays/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: course-dev

@@ -28,7 +28,7 @@ Commands and verification:
 
 ```bash
 # Edit application.yaml: replace REPLACE_OWNER/REPLACE_REPO with your public repository.
-# In dev overlay set newName to ghcr.io/<lowercase-owner>/<lowercase-repo>/go-app
+# In dev overlay set newName to docker.io/<dockerhub-user>/course-app
 # and newTag to sha-<full successful CI commit SHA>. Commit and push these changes.
 kubectl apply -f 03-argoCD/manifests/application.yaml
 kubectl -n argocd get applications -w

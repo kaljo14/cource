@@ -40,7 +40,7 @@ These are Kubernetes resources. Installing Flux registers their types and starts
 
 ![alt text](image.png)
 
-An **artifact** here is a stored snapshot of the fetched repository content at a particular revision. It is not the application's container image. The node's container runtime still pulls the application's image from GHCR when starting a Pod.
+An **artifact** here is a stored snapshot of the fetched repository content at a particular revision. It is not the application's container image. The node's container runtime still pulls the application's image from Docker Hub when starting a Pod.
 
 | Controller              | Responsibility                                                                           | Used in this lab?              |
 | ----------------------- | ---------------------------------------------------------------------------------------- | ------------------------------ |
@@ -97,7 +97,7 @@ metadata:
 spec:
   interval: 1m
   timeout: 3m
-  path: ./golang-app/02-gitops-config-kustomize/overlays/prod
+  path: ./02-gitops-config-kustomize/overlays/prod
   sourceRef:
     kind: GitRepository
     name: course
@@ -135,7 +135,7 @@ my-project/
     └── gitops/
 ```
 
-If my-project is the repository root, the application source path would be `deployment/kustomize/overlays/demo`. In this course repository the full path includes `golang-app/...` because that folder is inside the repository. Never use your laptop's absolute filesystem path.
+If my-project is the repository root, the application source path would be `deployment/kustomize/overlays/demo`. In this course, `golang-app/` is the repository root, so paths start with module directories such as `02-gitops-config-kustomize/` or `05-capstone/`. Never use your laptop's absolute filesystem path.
 
 The GitOps configuration file tells the controller which application folder to render. Keep the application folder focused on the resources you want it to manage. A public repository can be fetched without repository credentials a private one needs controller access configured separately from image-pull access.
 

@@ -15,7 +15,7 @@ Read [requirements](requirements.md), follow the [project milestones](lab.md), a
 
 ## Time and prerequisites
 
-Prerequisites: the application, configuration, GitOps and Helm modules. Allow a two-hour supervised project kickoff/demo plus **4–6 hours of independent work**. Teams of two may share implementation, but each student must explain the request path and demonstrate one operational change.
+Prerequisites: the application, configuration and GitOps modules. Allow a two-hour supervised project kickoff/demo plus **4–6 hours of independent work**. Teams of two may share implementation, but each student must explain the request path and demonstrate one operational change.
 
 ## Student and instructor separation
 

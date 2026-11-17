@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/REPLACE_OWNER/REPLACE_REPO.git
     targetRevision: main
-    path: golang-app/05-capstone/instructor-solutions/deployment/helm/campus-board
+    path: 05-capstone/instructor-solutions/deployment/helm/campus-board
   destination:
     server: https://kubernetes.default.svc
     namespace: capstone

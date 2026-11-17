@@ -40,7 +40,7 @@ GitOps makes Git the recorded desired state. A controller repeatedly compares th
 ```mermaid
 flowchart LR
   Code[Go source change] --> CI[STACKIT Git Actions: test and build]
-  CI --> Registry[GHCR: container image]
+  CI --> Registry[Docker Hub: container image]
   Promotion[Commit image reference to overlay] --> Git[Git: desired deployment]
   Git --> Argo[Argo CD: compare and sync]
   Argo --> API[Kubernetes API]
@@ -87,7 +87,7 @@ flowchart TB
   end
   subgraph Remote[Remote services]
     Repo[GitHub repository]
-    Registry[GHCR images]
+    Registry[Docker Hub images]
   end
   subgraph Kind[Your kind cluster]
     Argo[Argo CD Pods in argocd]
@@ -132,7 +132,7 @@ spec:
   source:
     repoURL: https://github.com/REPLACE_OWNER/REPLACE_REPO.git
     targetRevision: main
-    path: golang-app/02-gitops-config-kustomize/overlays/dev
+    path: 02-gitops-config-kustomize/overlays/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: course-dev
@@ -146,7 +146,7 @@ Read it as: “Read this repository's `main` branch, build the dev overlay, and 
 
 The Application object itself lives in `argocd`; the application workloads live in `course-dev`. These namespaces have different responsibilities.
 
-Replace the repository placeholders and configure the public GHCR image as instructed in [the lab](lab.md). After installation and configuration:
+Replace the repository placeholders and configure the public Docker Hub image as instructed in [the lab](lab.md). After installation and configuration:
 
 ```bash
 kubectl apply -f 03-argoCD/manifests/application.yaml
@@ -171,7 +171,7 @@ my-project/
     └── gitops/
 ```
 
-If my-project is the repository root, the application source path would be `deployment/kustomize/overlays/demo`. In this course repository the full path includes `golang-app/...` because that folder is inside the repository. Never use your laptop's absolute filesystem path.
+If my-project is the repository root, the application source path would be `deployment/kustomize/overlays/demo`. In this course, `golang-app/` is the repository root, so paths start with module directories such as `02-gitops-config-kustomize/` or `05-capstone/`. Never use your laptop's absolute filesystem path.
 
 The GitOps configuration file tells the controller which application folder to render. Keep the application folder focused on the resources you want it to manage. A public repository can be fetched without repository credentials; a private one needs controller access configured separately from image-pull access.
 
@@ -297,7 +297,7 @@ Our Application has no cascading deletion finalizer. The lab deletes the Applica
 ## Common mistakes
 
 - Pushing Go source and expecting a deployment before promoting its image reference.
-- Using a repository path relative to `golang-app/` instead of the Git repository root.
+- Including a `golang-app/` prefix in a GitOps path when that directory is already the Git repository root.
 - Confusing the `argocd` management namespace with `course-dev`.
 - Treating Synced as proof that requests succeed.
 - Editing the live cluster repeatedly while self-healing restores Git values.

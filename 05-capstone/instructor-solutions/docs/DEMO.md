@@ -96,7 +96,7 @@ kubectl -n capstone port-forward service/api 8081:8080
 
 In another terminal `curl http://localhost:8081/version` should return v2. Stop the API forward after checking. The browser should still save and list notes during the update; maxUnavailable=0 keeps old ready replicas until replacements are available, subject to actual capacity and dependency health.
 
-For the student publication route, change API source, let CI publish, then promote its actual GHCR SHA tag. Use the SHA returned by /version as evidence instead of v2. Never promote a tag before it exists.
+For the student publication route, change API source, let CI publish, then promote its actual Docker Hub SHA tag. Use the SHA returned by /version as evidence instead of v2. Never promote a tag before it exists.
 
 ## 6. Break one release and recover — 5 minutes
 

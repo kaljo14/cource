@@ -14,7 +14,7 @@ Implement a noticeboard or an equivalent simple application with the same observ
 
 - Provide separate API and frontend container images and reproducible Dockerfiles. Use a multi-stage build for the Go API and run application containers as non-root.
 - Use the official database image; do not write your own database server.
-- STACKIT Git Actions must test/build and publish API/frontend images to GHCR on trusted branch pushes. Pull requests must not publish. Use traceable tags and minimal permissions.
+- STACKIT Git Actions must test/build and publish API/frontend images to Docker Hub on trusted branch pushes. Pull requests must not publish. Use traceable tags and minimal permissions.
 - Document actual image references. Never commit tokens or passwords.
 
 ## 3. Create your own kind cluster
@@ -29,7 +29,7 @@ Run at least two API and two frontend replicas; one database replica is sufficie
 
 **Kustomize:** a reusable base and at least one environment overlay containing the application resources, Services, PVC and non-secret configuration. Render it before applying. Avoid copied environment manifests.
 
-**Helm:** one chart containing the three tiers, Services, PVC and ConfigMap, with values for image references, application replica counts and background color. Lint, render and package the chart. State chart version separately from image versions. Publishing the chart to GHCR is optional; publishing the application images is required.
+**Helm:** one chart containing the three tiers, Services, PVC and ConfigMap, with values for image references, application replica counts and background color. Lint, render and package the chart. State chart version separately from image versions. Publishing the chart to an OCI registry is optional; publishing the application images is required.
 
 Create the database Secret separately and document how to supply it. Never package a real credential into a chart or commit a plaintext Secret. Choose one packaging route rather than combining both unnecessarily.
 

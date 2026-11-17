@@ -4,13 +4,13 @@ Start with START.md completed, working application and capstone context. Command
 
 ## 1. Put the solution in your repository
 
-Push the complete repository containing golang-app/ to your own STACKIT Git repository, branch main. If this workspace is not yet a Git repository, initialize and commit it from its root before adding your STACKIT Git remote. The supplied paths and root workflow use the complete course layout. You can also copy this solution into its own repository; see the standalone-path table below.
+Push the contents of golang-app/ (the Git repository root) to your own STACKIT Git repository, branch main. If this workspace is not yet a Git repository, initialize and commit it from its root before adding your STACKIT Git remote. The supplied paths and root workflow use the complete course layout. You can also copy this solution into its own repository; see the standalone-path table below.
 
 Replace the complete GitHub placeholder URL in the GitOps manifest you choose, and in flux-source.yaml if using Flux, with your STACKIT Git clone URL. For private repositories, configure read credentials in Argo CD or Flux. Commit and push. No public URL is preconfigured because it must be your own repository.
 
-For a quick instructor demonstration, keep campus-api:v1/campus-frontend:v1 in Git; the images loaded into all capstone nodes work with IfNotPresent. **For the student final submission**, configure GHCR credentials and GHCR_NAMESPACE using [STACKIT CI setup](../../../../STACKIT-CI.md), then run the root Capstone application CI workflow on main and make both GHCR image packages public. Update the deployment configuration to the resulting full tags:
+For a quick instructor demonstration, keep campus-api:v1/campus-frontend:v1 in Git; the images loaded into all capstone nodes work with IfNotPresent. **For the student final submission**, configure DOCKERHUB_USER and DOCKERHUB_TOKEN using [STACKIT CI setup](../../../STACKIT-CI.md), then run the root Capstone application CI workflow on main and make both Docker Hub repositories public. Update the deployment configuration to the resulting full tags:
 
-- Kustomize: set each images entry's newName to `ghcr.io/<GHCR_NAMESPACE>/campus-api` or campus-frontend, and newTag to `sha-<successful-CI-commit>`.
+- Kustomize: set each images entry's newName to `docker.io/<DOCKERHUB_USER>/campus-api` or campus-frontend, and newTag to `sha-<successful-CI-commit>`.
 - Helm: set api.image and frontend.image in deployment/helm/campus-board/values.yaml to the complete published references.
 
 Commit the promotion only after the image build succeeds. A color-only configuration commit does not need a new image build. The workflow's manual dispatch on main is available if no source path changed. Do not attach registry credentials to this public-image demo.
@@ -22,12 +22,12 @@ The commands in these guides run from the solution directory. GitOps paths, howe
 
 | Setting | This course repository | Solution copied to its own repository root |
 |---|---|---|
-| Argo Kustomize source.path | `golang-app/05-capstone/instructor-solutions/deployment/kustomize/overlays/demo` | `deployment/kustomize/overlays/demo` |
-| Flux Kustomization spec.path | `./golang-app/05-capstone/instructor-solutions/deployment/kustomize/overlays/demo` | `./deployment/kustomize/overlays/demo` |
-| Argo Helm source.path | `golang-app/05-capstone/instructor-solutions/deployment/helm/campus-board` | `deployment/helm/campus-board` |
-| Flux Helm chart.spec.chart | `./golang-app/05-capstone/instructor-solutions/deployment/helm/campus-board` | `./deployment/helm/campus-board` |
+| Argo Kustomize source.path | `05-capstone/instructor-solutions/deployment/kustomize/overlays/demo` | `deployment/kustomize/overlays/demo` |
+| Flux Kustomization spec.path | `./05-capstone/instructor-solutions/deployment/kustomize/overlays/demo` | `./deployment/kustomize/overlays/demo` |
+| Argo Helm source.path | `05-capstone/instructor-solutions/deployment/helm/campus-board` | `deployment/helm/campus-board` |
+| Flux Helm chart.spec.chart | `./05-capstone/instructor-solutions/deployment/helm/campus-board` | `./deployment/helm/campus-board` |
 
-For a standalone repository, also copy the course-root `.forgejo/workflows/capstone-ci.yaml` into its root `.forgejo/workflows/` and remove the `golang-app/05-capstone/instructor-solutions/` prefix from its paths, contexts and working directories. The two Docker build contexts become api/ and frontend/. Update the repository URL in the chosen Argo manifest or Flux source. START.md's initial cd into the course subfolder can then be skipped; deployment/kind-config.yaml is included locally.
+For a standalone repository, also copy the course-root `.forgejo/workflows/capstone-ci.yaml` into its root `.forgejo/workflows/` and remove the `05-capstone/instructor-solutions/` prefix from its paths, contexts and working directories. The two Docker build contexts become api/ and frontend/. Update the repository URL in the chosen Argo manifest or Flux source. START.md's initial cd into the course subfolder can then be skipped; deployment/kind-config.yaml is included locally.
 
 ### Updating an existing installation after this refactor
 
@@ -35,16 +35,16 @@ Keep the existing namespace, Secret, PVC and workloads. Commit and push the move
 
 ```bash
 # Argo + Kustomize
-kubectl -n argocd patch application campus-board --type=merge -p '{"spec":{"source":{"path":"golang-app/05-capstone/instructor-solutions/deployment/kustomize/overlays/demo"}}}'
+kubectl -n argocd patch application campus-board --type=merge -p '{"spec":{"source":{"path":"05-capstone/instructor-solutions/deployment/kustomize/overlays/demo"}}}'
 
 # Argo + Helm
-kubectl -n argocd patch application campus-board --type=merge -p '{"spec":{"source":{"path":"golang-app/05-capstone/instructor-solutions/deployment/helm/campus-board"}}}'
+kubectl -n argocd patch application campus-board --type=merge -p '{"spec":{"source":{"path":"05-capstone/instructor-solutions/deployment/helm/campus-board"}}}'
 
 # Flux + Kustomize
-kubectl -n flux-system patch kustomization campus-board --type=merge -p '{"spec":{"path":"./golang-app/05-capstone/instructor-solutions/deployment/kustomize/overlays/demo"}}'
+kubectl -n flux-system patch kustomization campus-board --type=merge -p '{"spec":{"path":"./05-capstone/instructor-solutions/deployment/kustomize/overlays/demo"}}'
 
 # Flux + Helm
-kubectl -n flux-system patch helmrelease campus-board --type=merge -p '{"spec":{"chart":{"spec":{"chart":"./golang-app/05-capstone/instructor-solutions/deployment/helm/campus-board"}}}}'
+kubectl -n flux-system patch helmrelease campus-board --type=merge -p '{"spec":{"chart":{"spec":{"chart":"./05-capstone/instructor-solutions/deployment/helm/campus-board"}}}}'
 ```
 
 These patches change only the path, preserving your live repository URL and other settings. The matching files in deployment/gitops/ already contain the new paths; keep your actual repository URL in those files too. If another GitOps resource manages these controller objects, change its Git configuration as well. Inspect status and wait for the pushed revision. Do not delete application data to resolve a path error.

@@ -1,0 +1,32 @@
+name: Go application CI
+on:
+  push:
+    branches:
+      - main
+      - kaloyan-app
+  pull_request:
+jobs:
+  build-and-publish:
+    runs-on: stackit-docker
+    env:
+      IMAGE: course-app:sha-${{ github.sha }}
+      IMAGE_TAG: sha-${{ github.sha }}
+      VERSION: ${{ github.sha }}
+    steps:
+      - name: Download the source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 01-app-ci/app/go.mod
+          cache: false
+      - name: Test and build the app
+        run: bash 01-app-ci/scripts/build-app.sh
+      - name: Push the image to Docker Hub
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: bash 01-app-ci/scripts/push-dockerhub.sh

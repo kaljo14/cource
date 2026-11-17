@@ -72,7 +72,7 @@ kubectl -n course-app get events --sort-by=.metadata.creationTimestamp
 ```bash
 # At repository root, follow instructor-commands.md to configure STACKIT Git
 # and the DOCKERHUB_USER / DOCKERHUB_TOKEN repository secrets.
-bash golang-app/01-app-ci/scripts/push-source.sh
+bash 01-app-ci/scripts/push-source.sh
 ```
 
 **Write down — Q4.** What tag and permissions did the workflow use? Why must it live at repository root?

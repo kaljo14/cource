@@ -7,7 +7,6 @@ Audience: university IT/software engineering students; basic shell, Git and prog
 - [02-gitops-config-kustomize: Configuration with Kustomize](02-gitops-config-kustomize/README.md) — 30 minutes
 - [03-argoCD: GitOps with Argo CD](03-argoCD/README.md) — 90 minutes
 - [04-fluxCD: GitOps with Flux](04-fluxCD/README.md) — 90 minutes
-- [04a-helm: Package and deploy with Helm](04a-helm/README.md) — 30 minutes
-- Capstone: 120 minutes; prerequisites Modules 00–04 and 04a; two-hour supervised kickoff/demo for the three-tier final project, plus 4–6 hours independent implementation.
+- Capstone: 120 minutes; prerequisites Modules 00–04; two-hour supervised kickoff/demo for the three-tier final project, plus 4–6 hours independent implementation.
 
-Total: 570 minutes (9.5 hours), including readings and labs. Optional exercises add 15–25 minutes each. Module 00 establishes architecture and context; 01 adds code, runtime and CI; 02 separates environment configuration; 03 and 04 compare pull reconciliation; 04a adds Helm packaging and registry distribution; 05 assesses a frontend/API/database deployment with a ConfigMap color change and GitOps recovery. Each module's theory states prerequisites and objectives. Assess explanations and before/after evidence, not copied YAML. Pair students for diagnosis, then require individual answers.
+Total: 540 minutes (9 hours), including readings and labs. Optional exercises add 15–25 minutes each. Module 00 establishes architecture and context; 01 adds code, runtime and CI; 02 separates environment configuration; 03 and 04 compare pull reconciliation; 05 assesses a frontend/API/database deployment with a ConfigMap color change and GitOps recovery. Each module's theory states prerequisites and objectives. Assess explanations and before/after evidence, not copied YAML. Pair students for diagnosis, then require individual answers.

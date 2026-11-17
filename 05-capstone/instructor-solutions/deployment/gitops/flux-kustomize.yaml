@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 30s
   timeout: 5m
-  path: ./golang-app/05-capstone/instructor-solutions/deployment/kustomize/overlays/demo
+  path: ./05-capstone/instructor-solutions/deployment/kustomize/overlays/demo
   sourceRef:
     kind: GitRepository
     name: campus-board

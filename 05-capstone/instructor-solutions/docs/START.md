@@ -7,7 +7,7 @@ Use Docker, kind, kubectl, Go, Git, Python 3 and OpenSSL from the earlier module
 From the **repository root**:
 
 ```bash
-cd golang-app/05-capstone/instructor-solutions
+cd 05-capstone/instructor-solutions
 kind create cluster --name capstone --config deployment/kind-config.yaml
 kubectl config use-context kind-capstone
 kubectl get nodes -o wide
@@ -101,7 +101,7 @@ Now follow [GITOPS.md](GITOPS.md), then present [DEMO.md](DEMO.md). Once GitOps 
 
 | Symptom | Check and repair |
 |---|---|
-| ImagePullBackOff | `kubectl -n capstone describe pods`; check local images loaded into capstone or public GHCR references. |
+| ImagePullBackOff | `kubectl -n capstone describe pods`; check local images loaded into capstone or public Docker Hub references. |
 | API waiting for database | `kubectl -n capstone logs deployment/api`; check db readiness, db-credentials and Service DNS. |
 | Database permission/startup failure | `kubectl -n capstone logs db-0`; inspect PVC, node disk space and security context. Use the pinned Debian image with UID 999. |
 | PVC Pending | `kubectl -n capstone describe pvc db-data`; standard uses WaitForFirstConsumer, so wait for db scheduling; inspect local-path-storage Pods. |
@@ -138,4 +138,4 @@ For a **complete disposable reset**, after saving anything needed:
 kind delete cluster --name capstone
 ```
 
-This destroys all capstone workloads, Secrets and node-local database storage. It leaves the course cluster and GHCR packages alone. For a fresh cluster, build/load images and generate a fresh Secret again.
+This destroys all capstone workloads, Secrets and node-local database storage. It leaves the course cluster and Docker Hub images alone. For a fresh cluster, build/load images and generate a fresh Secret again.

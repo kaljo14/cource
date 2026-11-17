@@ -24,4 +24,4 @@ kubectl -n capstone rollout status deployment/frontend --timeout=180s
 kubectl -n capstone port-forward service/frontend 8080:8080
 ```
 
-Stop any old forwarding process before starting this one, then reload http://localhost:8080. Use a hard refresh if the browser cached old assets. With GHCR, promote the real published SHA tag instead of the local v2 tag. A background-color-only ConfigMap change still requires no image rebuild.
+Stop any old forwarding process before starting this one, then reload http://localhost:8080. Use a hard refresh if the browser cached old assets. With Docker Hub, promote the real published SHA tag instead of the local v2 tag. A background-color-only ConfigMap change still requires no image rebuild.

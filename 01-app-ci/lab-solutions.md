@@ -57,7 +57,7 @@ kubectl -n course-app get events --sort-by=.metadata.creationTimestamp
 
 ## Part 4
 
-**Q4.** The tag is sha- plus the full commit SHA. The workflow checks out source without persisting Git credentials and uses DOCKERHUB_USER / DOCKERHUB_TOKEN repository secrets to publish to Docker Hub. STACKIT Git discovers workflows under root .forgejo/workflows. Use the repository containing golang-app. Pull requests run the build script; main pushes also run the Docker Hub publish script.
+**Q4.** The tag is sha- plus the full commit SHA. The workflow checks out source without persisting Git credentials and uses DOCKERHUB_USER / DOCKERHUB_TOKEN repository secrets to publish to Docker Hub. STACKIT Git discovers workflows under root .forgejo/workflows. Use golang-app itself as the repository root. Pull requests run the build script; main pushes also run the Docker Hub publish script.
 
 Expected observation: Tests and publication succeed; Docker Hub image exists for the commit.
 
@@ -65,7 +65,7 @@ Commands and verification:
 
 ```bash
 # Configure repository secrets using instructor-commands.md first.
-bash golang-app/01-app-ci/scripts/push-source.sh
+bash 01-app-ci/scripts/push-source.sh
 ```
 
 ## Troubleshooting and cleanup

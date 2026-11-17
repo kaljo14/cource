@@ -1,19 +1,19 @@
 ```bash
-# Run from the STACKITUNI repository root.
+# Run from the golang-app Git repository root.
 
 # Start kind.
-kind get clusters | grep -qx course || kind create cluster --name course --config golang-app/00-lab-setup/kind-config.yaml
+kind get clusters | grep -qx course || kind create cluster --name course --config 00-lab-setup/kind-config.yaml
 kubectl config use-context kind-course
 kubectl wait --for=condition=Ready nodes --all --timeout=180s
 kubectl create namespace course-app --dry-run=client -o yaml | kubectl apply -f -
 
 # Run the pipeline steps locally.
-bash golang-app/01-app-ci/scripts/build-app.sh
-bash golang-app/01-app-ci/scripts/push-dockerhub.sh
+bash 01-app-ci/scripts/build-app.sh
+bash 01-app-ci/scripts/push-dockerhub.sh
 
 # Load the local image, build manifests, and deploy.
 kind load docker-image course-app:v1 --name course
-kubectl kustomize golang-app/01-app-ci/k8s > /tmp/course-app.yaml
+kubectl kustomize 01-app-ci/k8s > /tmp/course-app.yaml
 kubectl -n course-app apply -f /tmp/course-app.yaml
 kubectl -n course-app rollout status deployment/go-app --timeout=180s
 kubectl -n course-app port-forward service/go-app 8080:80
@@ -35,7 +35,7 @@ export STACKIT_REPO_URL='https://YOUR-STACKIT-GIT-HOST/OWNER/REPOSITORY.git'
 git add -A
 git diff --cached
 git commit -m "Configure STACKIT Git CI"
-bash golang-app/01-app-ci/scripts/push-source.sh
+bash 01-app-ci/scripts/push-source.sh
 # Open the repository Actions tab and wait for successful publication.
 
 # Pull the CI image and load it into kind.
@@ -51,7 +51,7 @@ kind load docker-image "$REGISTRY_IMAGE:$IMAGE_TAG" --name course
 
 # Build manifests with the CI image and deploy.
 DEPLOY_DIR=$(mktemp -d)
-cp golang-app/01-app-ci/k8s/*.yaml "$DEPLOY_DIR/"
+cp 01-app-ci/k8s/*.yaml "$DEPLOY_DIR/"
 cat >> "$DEPLOY_DIR/kustomization.yaml" <<YAML
 images:
   - name: course-app

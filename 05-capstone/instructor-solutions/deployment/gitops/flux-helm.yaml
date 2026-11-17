@@ -10,7 +10,7 @@ spec:
   releaseName: campus-board
   chart:
     spec:
-      chart: ./golang-app/05-capstone/instructor-solutions/deployment/helm/campus-board
+      chart: ./05-capstone/instructor-solutions/deployment/helm/campus-board
       reconcileStrategy: Revision
       sourceRef:
         kind: GitRepository

@@ -1,0 +1,61 @@
+name: Capstone application CI
+on:
+  push:
+    branches: [main, kaloyan-app]
+  pull_request:
+    paths:
+    - '05-capstone/instructor-solutions/api/**'
+    - '05-capstone/instructor-solutions/frontend/**'
+    - '.forgejo/workflows/capstone-ci.yaml'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: stackit-docker
+    strategy:
+      matrix:
+        component: [api, frontend]
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: 05-capstone/instructor-solutions/${{ matrix.component }}/go.mod
+        cache: false
+    - run: go test -race ./... && go vet ./... && go build -o /tmp/campus-service .
+      working-directory: 05-capstone/instructor-solutions/${{ matrix.component }}
+    - run: docker build 05-capstone/instructor-solutions/${{ matrix.component }}
+  publish:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    needs: test
+    runs-on: stackit-docker
+    strategy:
+      matrix:
+        component: [api, frontend]
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - uses: docker/setup-qemu-action@v3
+    - uses: docker/setup-buildx-action@v3
+    - id: image
+      shell: bash
+      env:
+        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+        COMPONENT: ${{ matrix.component }}
+      run: |
+        : "${DOCKERHUB_USER:?Set the DOCKERHUB_USER repository secret}"
+        echo "name=docker.io/${DOCKERHUB_USER}/campus-${COMPONENT}" >> "$GITHUB_OUTPUT"
+    - uses: docker/login-action@v3
+      with:
+        registry: docker.io
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - uses: docker/build-push-action@v6
+      with:
+        context: 05-capstone/instructor-solutions/${{ matrix.component }}
+        file: 05-capstone/instructor-solutions/${{ matrix.component }}/Dockerfile
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ${{ steps.image.outputs.name }}:sha-${{ github.sha }}
+        build-args: VERSION=${{ github.sha }}

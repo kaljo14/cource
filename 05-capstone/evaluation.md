@@ -3,7 +3,7 @@
 | Area | Points | Observable criteria |
 |---|---:|---|
 | Three-tier functionality | 20 | Frontend saves/lists records through API (8); real DB persistence (6); input validation and meaningful tests (6). |
-| Containers and CI | 15 | Reproducible separate images (5); tests/builds in Actions (5); trusted-only publication and traceable GHCR references (5). |
+| Containers and CI | 15 | Reproducible separate images (5); tests/builds in Actions (5); trusted-only publication and traceable Docker Hub references (5). |
 | Kubernetes and packaging | 15 | Own three-node cluster and correct internal Services (5); coherent Helm chart or Kustomize base/overlay (5); reproducible deployment instructions (5). |
 | Reliability and persistence | 15 | Probes and requests/limits (5); two API/frontend replicas and rolling update (5); PVC persistence demonstrated and limitations explained (5). |
 | GitOps | 15 | Correct source/revision/path and healthy reconciliation (6); live replica drift repaired (5); single ownership and permanent Git repair (4). |

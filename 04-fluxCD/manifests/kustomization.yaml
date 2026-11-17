@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 1m
   timeout: 3m
-  path: ./golang-app/02-gitops-config-kustomize/overlays/prod
+  path: ./02-gitops-config-kustomize/overlays/prod
   sourceRef:
     kind: GitRepository
     name: course

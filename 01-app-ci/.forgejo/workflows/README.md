@@ -1,1 +1,1 @@
-The executable workflow is at repository root: [course-ci.yaml](../../../../.forgejo/workflows/course-ci.yaml). STACKIT Git discovers workflows at repository root. Keep the entire repository layout when pushing your fork; do not make golang-app the repository root without updating workflow and GitOps paths.
+The executable workflow is at the Git repository root: [course-ci.yaml](../../../.forgejo/workflows/course-ci.yaml). The `golang-app/` directory is the repository root; include its `.forgejo/` directory when pushing. This nested directory contains documentation only.

@@ -17,12 +17,12 @@ A Deployment controls ReplicaSets and rolling replacement. The Service selects a
 The pipeline uses the same scripts locally and in STACKIT Git Actions:
 
 - `scripts/build-app.sh` runs Go tests and builds the container image. The Dockerfile compiles the Go application.
-- `scripts/push-source.sh` pushes committed source to the main branch of an existing STACKIT Git repository, triggering CI. Run this locally.
+- `scripts/push-source.sh` pushes committed source to the current `main` or `kaloyan-app` branch of an existing STACKIT Git repository, triggering CI. Run this locally.
 - `scripts/push-dockerhub.sh` logs in, tags the built image, and pushes it to `<Docker Hub username>/course-app`.
 
-Set the STACKIT Git repository secrets `DOCKERHUB_USER` and `DOCKERHUB_TOKEN` before pushing. CI runs the build script for pull requests and main pushes; only main pushes run the publish script. CI tags images with `sha-<full commit SHA>`. Local defaults are `course-app:v1` and `VERSION=v1`; override `IMAGE`, `IMAGE_TAG`, and `VERSION` to use another tag. Each image targets the build machine's architecture (check the selected runner architecture). CI does not deploy to Kubernetes.
+Set the STACKIT Git repository secrets `DOCKERHUB_USER` and `DOCKERHUB_TOKEN` before pushing. CI runs the build script for pull requests and pushes to `main` or `kaloyan-app`; only main pushes run the publish script. CI tags images with `sha-<full commit SHA>`. Local defaults are `course-app:v1` and `VERSION=v1`; override `IMAGE`, `IMAGE_TAG`, and `VERSION` to use another tag. Each image targets the build machine's architecture (check the selected runner architecture). CI does not deploy to Kubernetes.
 
-Complete [STACKIT CI setup](../../STACKIT-CI.md), then follow [the instructor commands](instructor-commands.md) to run each step.
+Complete [STACKIT CI setup](../STACKIT-CI.md), then follow [the instructor commands](instructor-commands.md) to run each step.
 
 ![alt text](image.png)
 
