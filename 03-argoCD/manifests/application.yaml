@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/REPLACE_OWNER/REPLACE_REPO.git
-    targetRevision: main
+    repoURL: https://YOUR-GIT-HOST/OWNER/REPO.git
+    targetRevision: kaloyan-app
     path: 02-gitops-config-kustomize/overlays/dev
   destination:
     server: https://kubernetes.default.svc

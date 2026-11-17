@@ -7,7 +7,7 @@ Read [theory](README.md) and complete the preceding module. Work from `golang-ap
 
 ## Part 1 — Install and access
 
-**What you will do:** install and access.
+**What you will do:** install and access. Follow the [lecturer setup guide](lecturer-instructions.md) for the complete private-repository walkthrough.
 
 **Instructions:**
 
@@ -30,9 +30,11 @@ kubectl -n argocd port-forward service/argocd-server 8443:443
 **Instructions:**
 
 ```bash
-# Edit application.yaml: replace REPLACE_OWNER/REPLACE_REPO with your public repository.
+# Follow lecturer-instructions.md to register private Git credentials first.
+# Edit application.yaml: set your HTTPS clone URL and targetRevision: kaloyan-app.
 # In dev overlay set newName to docker.io/<dockerhub-user>/course-app
-# and newTag to sha-<full successful CI commit SHA>. Commit and push these changes.
+# and newTag to an existing published sha-<commit> tag. Commit and push to kaloyan-app.
+# CI publishes from main only; configuration changes can reuse that published image.
 kubectl apply -f 03-argoCD/manifests/application.yaml
 kubectl -n argocd get applications -w
 ```

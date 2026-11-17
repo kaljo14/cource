@@ -4,6 +4,8 @@ Outputs described below are representative, not captured cluster results. Discov
 
 ## Part 1
 
+Use the [lecturer setup guide](lecturer-instructions.md) for installation, private Git access, and branch selection.
+
 **Q1.** The default installation uses a self-signed certificate. Accept only for this known local lab endpoint.
 
 Expected observation: UI accessible only through localhost; initial password kept private.
@@ -27,9 +29,11 @@ Expected observation: Application reaches Synced and Healthy; dev serves publish
 Commands and verification:
 
 ```bash
-# Edit application.yaml: replace REPLACE_OWNER/REPLACE_REPO with your public repository.
+# Follow lecturer-instructions.md to register private Git credentials first.
+# Edit application.yaml: set your HTTPS clone URL and targetRevision: kaloyan-app.
 # In dev overlay set newName to docker.io/<dockerhub-user>/course-app
-# and newTag to sha-<full successful CI commit SHA>. Commit and push these changes.
+# and newTag to an existing published sha-<commit> tag. Commit and push to kaloyan-app.
+# CI publishes from main only; configuration changes can reuse that published image.
 kubectl apply -f 03-argoCD/manifests/application.yaml
 kubectl -n argocd get applications -w
 ```

@@ -130,8 +130,8 @@ This shortened example illustrates the important fields; the complete file is [m
 ```yaml
 spec:
   source:
-    repoURL: https://github.com/REPLACE_OWNER/REPLACE_REPO.git
-    targetRevision: main
+    repoURL: https://YOUR-GIT-HOST/OWNER/REPO.git
+    targetRevision: kaloyan-app
     path: 02-gitops-config-kustomize/overlays/dev
   destination:
     server: https://kubernetes.default.svc
@@ -142,11 +142,11 @@ spec:
       selfHeal: true
 ```
 
-Read it as: “Read this repository's `main` branch, build the dev overlay, and deploy it to this cluster.” The destination URL is the Kubernetes API inside the cluster. The overlay already sets `course-dev` on its namespaced resources.
+Read it as: “Read this repository's `kaloyan-app` branch, build the dev overlay, and deploy it to this cluster.” The destination URL is the Kubernetes API inside the cluster. The overlay already sets `course-dev` on its namespaced resources.
 
 The Application object itself lives in `argocd`; the application workloads live in `course-dev`. These namespaces have different responsibilities.
 
-Replace the repository placeholders and configure the public Docker Hub image as instructed in [the lab](lab.md). After installation and configuration:
+Follow the [lecturer instructions](lecturer-instructions.md) to install Argo CD, connect your private Git repository, and select the custom branch. Replace the repository URL and configure the public Docker Hub image as instructed in [the lab](lab.md). After installation and configuration:
 
 ```bash
 kubectl apply -f 03-argoCD/manifests/application.yaml
