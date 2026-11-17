@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: course-dev
+resources: [../../base, namespace.yaml]
+replicas:
+- name: go-app
+  count: 1
+configMapGenerator:
+- name: app-config
+  behavior: merge
+  literals: [MESSAGE=Hello dev]
+images:
+- name: course-app
+  newName: course-app
+  newTag: v1

@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: capstone
+resources: [../../base]
+patches:
+- path: theme.yaml
+images:
+- name: campus-api
+  newName: campus-api
+  newTag: v1
+- name: campus-frontend
+  newName: campus-frontend
+  newTag: v1

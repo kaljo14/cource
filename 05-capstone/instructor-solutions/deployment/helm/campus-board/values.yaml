@@ -1,0 +1,9 @@
+api:
+  image: campus-api:v1
+  replicas: 2
+frontend:
+  image: campus-frontend:v1
+  replicas: 2
+backgroundColor: "#e0f2fe"
+database:
+  image: postgres:16.6-bookworm

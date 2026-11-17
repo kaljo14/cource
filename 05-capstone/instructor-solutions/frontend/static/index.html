@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#174f46">
+  <title>Campus Board · A little knowledge, shared</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Campus Board home"><span class="brand-icon" aria-hidden="true">cb<span>·</span></span>Campus Board</a>
+      <span class="header-label">A space for the next class</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow"><span aria-hidden="true"></span> THE CLASSROOM COMMONS</p>
+        <h1 id="page-title">Good ideas deserve<br>a place to <em>stay.</em></h1>
+        <p class="intro">A discovery, a useful tip, a question worth asking.<br class="desktop-break"> Leave something for the people learning alongside you.</p>
+      </section>
+
+      <div class="workspace">
+        <aside class="compose-panel">
+          <div class="compose-heading"><span class="section-number">01 / CONTRIBUTE</span><span class="pencil" aria-hidden="true">↗</span></div>
+          <h2>Leave a little wisdom.</h2>
+          <p class="muted">One note can make someone else's next step a little easier.</p>
+          <form id="form">
+            <label for="text">Your note</label>
+            <textarea id="text" name="text" rows="5" maxlength="200" required placeholder="Today I learned that…" aria-describedby="note-hint counter"></textarea>
+            <div class="input-meta"><span id="note-hint">Keep it kind. Keep it useful.</span><span id="counter">0 / 200</span></div>
+            <button id="submit" class="primary-button" type="submit"><span id="submit-label">Post to the board</span><span aria-hidden="true">↗</span></button>
+            <p id="status" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+          <div class="composer-footer"><span aria-hidden="true">✧</span><span>Small notes. Shared progress.</span></div>
+        </aside>
+
+        <section class="board" aria-labelledby="board-title">
+          <div class="board-heading">
+            <div><span class="section-number">02 / THE CONVERSATION</span><h2 id="board-title">From the community <span id="note-count" class="count" aria-label="Notes shown">0</span></h2></div>
+            <button id="refresh" type="button" class="refresh-button" aria-label="Refresh notes"><span aria-hidden="true">↻</span> Refresh</button>
+          </div>
+          <p id="board-status" class="board-status" role="status" aria-live="polite">Loading the latest notes…</p>
+          <div id="empty" class="empty-state" hidden><span class="empty-icon" aria-hidden="true">✎</span><h3>A fresh page for the class.</h3><p>No notes yet. Share the first thing you learned.</p></div>
+          <ul id="notes" class="notes" aria-label="Community notes" aria-busy="true"></ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer"><p>Built for curious minds.</p><div class="theme-chip" title="This page color is read from the mounted ConfigMap"><span id="color-swatch" aria-hidden="true"></span><span>Board color</span><code id="color">Connecting…</code><span class="config-label">ConfigMap</span></div></footer>
+  </div>
+</body>
+</html>
